@@ -6,5 +6,7 @@ namespace SampleJob.Job
 {
     public interface ICalcJob
     {
+        Task Add(CalcParameter parameter);
+        Task Sub(CalcParameter parameter);
     }
 }
