@@ -58,6 +58,9 @@ namespace Library.AsyncJob.Worker
                     VisibilityTimeout = _settings.VisibilityTimeout
                 };
                 
+                Log.Information("受信開始: {@settings}", 
+                    new{_settings.QueueUrl, _settings.MaxNumberOfMessages, _settings.VisibilityTimeout});
+                
                 while (true)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
@@ -66,6 +69,8 @@ namespace Library.AsyncJob.Worker
                     
                     foreach (var message in response.Messages)
                     {
+                        Log.Information("受信: messageId={messageId}", message.MessageId); 
+
                         await DispatchAsync(message.Body).ConfigureAwait(false);
 
                         // ReSharper disable once MethodSupportsCancellation

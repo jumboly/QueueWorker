@@ -16,6 +16,7 @@ namespace Library.AsyncJob.Worker
             {
                 foreach (var record in sqsEvent.Records)
                 {
+                    Log.Information("受信: messageId={messageId}", record.MessageId);
                     await DispatchAsync(record.Body).ConfigureAwait(false);
                 }
             }
